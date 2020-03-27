@@ -1,0 +1,43 @@
+#Category
+
+#GET http://localhost:5000/api/categories
+
+# POST http://localhost:5000/api/categories
+# Content-Type: application/json
+
+# {
+#     "Name": "Printer"
+# }
+
+
+# PUT http://localhost:5000/api/categories/1
+# Content-Type: application/json
+
+# {
+#     "Name": "Laptop"
+# }
+
+#DELETE http://localhost:5000/api/categories/1
+
+#Good
+
+#GET http://localhost:5000/api/goods
+
+# POST http://localhost:5000/api/goods
+# Content-Type: application/json
+
+# {
+#     "GoodName": "Acer Aspire ES1-411-C1XZ",
+#     "GoodCount": 3,
+#     "Price": 6399.00,
+#     "CategoryId": 100
+# }
+
+# PUT http://localhost:5000/api/goods/1
+# Content-Type: application/json
+
+# {
+#     "Price": 8150.00
+# }
+
+#DELETE http://localhost:5000/api/goods/1
