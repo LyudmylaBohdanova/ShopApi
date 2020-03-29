@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.API.Domain.Model;
 using Shop.API.Domain.Services;
@@ -9,6 +10,7 @@ using Shop.API.Resources;
 
 namespace Shop.API.Controllers
 {
+    [Authorize]
     [Route ("api/categories")]
     public class CategoriesController : Controller
     {
@@ -20,6 +22,7 @@ namespace Shop.API.Controllers
             this.mapper = mapper;
         }
 
+        [Authorize(Roles="lexus_driver, corolla_driver")]
         [HttpGet]
         public async Task<IEnumerable<CategoryResource>> GetAllAsync() 
         {
@@ -28,6 +31,7 @@ namespace Shop.API.Controllers
             return resource;
         }
 
+        [Authorize(Roles="lexus_driver")]
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveCategoryResource resource)
         {
@@ -44,6 +48,7 @@ namespace Shop.API.Controllers
             return Ok(categoryResource);
         }
 
+        [Authorize(Roles="lexus_driver")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] SaveCategoryResource resource)
         {
@@ -60,6 +65,7 @@ namespace Shop.API.Controllers
             return Ok(categoryResource);
         }
 
+        [Authorize(Roles="lexus_driver")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {

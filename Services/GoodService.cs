@@ -62,7 +62,7 @@ namespace Shop.API.Services
             if (existingGood == null)
                 return new GoodResponse("Good not found");
             
-            existingGood.GoodName = good.GoodName;
+            if(good.GoodName != null) existingGood.GoodName = good.GoodName;
             existingGood.GoodCount = good.GoodCount;
             existingGood.Price = good.Price;
             existingGood.CategoryId = good.CategoryId;

@@ -1,17 +1,17 @@
 #Category
 
-#GET http://localhost:5000/api/categories
+# GET http://localhost:5000/api/categories
 
 # POST http://localhost:5000/api/categories
 # Content-Type: application/json
-
+# Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ItCb0Y7QtNC80LjQu9CwIiwicm9sZSI6ImNvcm9sbGFfZHJpdmVyIiwibmJmIjoxNTg1NDQyMDkyLCJleHAiOjE1ODU0NDM4OTIsImlhdCI6MTU4NTQ0MjA5Mn0.jcJBe4k3Q6XJBc4_LgGse1b_aSx3oT3NbMIAGq3wV18
 # {
 #     "Name": "Printer"
 # }
 
-
 # PUT http://localhost:5000/api/categories/1
 # Content-Type: application/json
+# Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ItCb0Y7QtNC80LjQu9CwIiwicm9sZSI6ImNvcm9sbGFfZHJpdmVyIiwibmJmIjoxNTg1NDQyMDkyLCJleHAiOjE1ODU0NDM4OTIsImlhdCI6MTU4NTQ0MjA5Mn0.jcJBe4k3Q6XJBc4_LgGse1b_aSx3oT3NbMIAGq3wV18
 
 # {
 #     "Name": "Laptop"
@@ -21,7 +21,7 @@
 
 #Good
 
-#GET http://localhost:5000/api/goods
+# GET http://localhost:5000/api/goods
 
 # POST http://localhost:5000/api/goods
 # Content-Type: application/json
@@ -40,4 +40,17 @@
 #     "Price": 8150.00
 # }
 
-#DELETE http://localhost:5000/api/goods/1
+# DELETE http://localhost:5000/api/goods/1
+
+#Authenticate
+
+# POST http://localhost:5000/api/auth/authenticate
+# Content-Type: application/json
+
+# {
+#     "Login": "Corolla",
+#     "Password": "Corolla123"
+# }
+
+# GET http://localhost:5000/api/categories
+#  Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ItCb0Y7QtNC80LjQu9CwIiwicm9sZSI6ImNvcm9sbGFfZHJpdmVyIiwibmJmIjoxNTg1NDQyMDkyLCJleHAiOjE1ODU0NDM4OTIsImlhdCI6MTU4NTQ0MjA5Mn0.jcJBe4k3Q6XJBc4_LgGse1b_aSx3oT3NbMIAGq3wV18
