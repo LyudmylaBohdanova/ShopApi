@@ -10,7 +10,6 @@ namespace Shop.API.Mapping
         {
             CreateMap<SaveCategoryResource, Category>();
             CreateMap<SaveGoodResource, Good>();
-            CreateMap<UpdateGoodResource, Good>();
         }
     }
 }

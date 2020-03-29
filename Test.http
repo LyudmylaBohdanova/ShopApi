@@ -37,7 +37,10 @@
 # Content-Type: application/json
 
 # {
-#     "Price": 8150.00
+#     "GoodName": "Acer Aspire ES1-411-C1XZ",
+#     "GoodCount": 3,  
+#     "Price": 8150.00,
+#     "CategoryId": 100
 # }
 
 # DELETE http://localhost:5000/api/goods/1

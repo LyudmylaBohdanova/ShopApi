@@ -50,12 +50,12 @@ namespace Shop.API.Controllers
 
         [Authorize(Roles="lexus_driver")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(int id, [FromBody] UpdateGoodResource resource)
+        public async Task<IActionResult> PutAsync(int id, [FromBody] SaveGoodResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
-            var good = mapper.Map<UpdateGoodResource, Good>(resource);
+            var good = mapper.Map<SaveGoodResource, Good>(resource);
             var result = await goodService.UpdateAsync(id, good);
 
             if (!result.Success)
