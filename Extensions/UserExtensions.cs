@@ -20,6 +20,7 @@ namespace Shop.API.Extensions
                         new Claim(ClaimTypes.Name, user.Firstname),
                         new Claim(ClaimTypes.Role, user.Role)
                 }),
+
                 Expires = DateTime.Now.AddMinutes(expires),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

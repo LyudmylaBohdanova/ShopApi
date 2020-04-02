@@ -1,6 +1,7 @@
 #Category
 
 # GET http://localhost:5000/api/categories
+# Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ItCU0LzQuNGC0YDQuNC5Iiwicm9sZSI6ImxleHVzX2RyaXZlciIsIm5iZiI6MTU4NTU1ODYyOSwiZXhwIjoxNTg1NTYwNDI5LCJpYXQiOjE1ODU1NTg2Mjl9.W7H45XK12zwoyrWjEPT2BkeIk5HdmXbwXeR6XwNzUJs
 
 # POST http://localhost:5000/api/categories
 # Content-Type: application/json
@@ -21,7 +22,8 @@
 
 #Good
 
-# GET http://localhost:5000/api/goods
+GET http://localhost:5000/api/goods
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ItCU0LzQuNGC0YDQuNC5Iiwicm9sZSI6ImxleHVzX2RyaXZlciIsIm5iZiI6MTU4NTg0MDE4MCwiZXhwIjoxNTg1ODQxOTgwLCJpYXQiOjE1ODU4NDAxODB9.b4zlUdYrKnHdn8kVbhBgfcxJMzTkD8Y9OkAWb9w4Tr8
 
 # POST http://localhost:5000/api/goods
 # Content-Type: application/json
@@ -47,13 +49,13 @@
 
 #Authenticate
 
-# POST http://localhost:5000/api/auth/authenticate
-# Content-Type: application/json
+POST http://localhost:5000/api/auth/authenticate
+Content-Type: application/json
 
-# {
-#     "Login": "Corolla",
-#     "Password": "Corolla123"
-# }
+{
+    "Login": "Lexus",
+    "Password": "Lexus123"
+}
 
 # GET http://localhost:5000/api/categories
 #  Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ItCb0Y7QtNC80LjQu9CwIiwicm9sZSI6ImNvcm9sbGFfZHJpdmVyIiwibmJmIjoxNTg1NDQyMDkyLCJleHAiOjE1ODU0NDM4OTIsImlhdCI6MTU4NTQ0MjA5Mn0.jcJBe4k3Q6XJBc4_LgGse1b_aSx3oT3NbMIAGq3wV18
