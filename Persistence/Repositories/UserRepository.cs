@@ -23,7 +23,7 @@ namespace Shop.API.Persistence.Repositories
 
         public async Task<IEnumerable<User>> ListAsync()
         {
-            return await context.Users.ToListAsync();
+            return await context.Users.Include(x => x.UserRoles).ThenInclude(x => x.Role).ToListAsync();
         }
 
         public void Remove(User user)

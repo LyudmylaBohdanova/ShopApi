@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="content/users.css" class="src">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto container">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Index</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="goods.html">Goods</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="categories.html">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="users.html">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="roles.html">Roles</a>
+                  </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+            </ul>
+            <div id="userInfo" class="d-none">
+                <span id="userName"></span>
+                <span id="logoutBtn">
+                    <img src="https://img.icons8.com/office/32/000000/exit.png"/>
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container"><h3>Users</h3></div>
+    <hr class="container">
+
+    <div class="container">
+        <div id="infoBlock" class="d-none alert alert-danger"></div>
+        <div id="usersTable" class="d-none">
+            <div id="addBtn" class="admin mb-2">
+                <img src="https://img.icons8.com/ultraviolet/32/000000/plus-2-math.png"/>
+            </div>
+            <div id="tableData">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="userModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userModal">Create user</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nameForm">Name</label>
+                        <input class="form-control" id="nameForm" type="text" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastnameForm">Lastname</label>
+                        <input class="form-control" id="lastnameForm" type="text" placeholder="Lastname">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginForm">Login</label>
+                        <input class="form-control" id="loginForm" type="text" placeholder="Login">
+                    </div>
+                    <div class="form-group">
+                        <label for="passwordForm">Password</label>
+                        <input class="form-control" id="passwordForm" type="password" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="roleForm">Role</label>
+                        <input class="form-control" id="roleForm" type="text" placeholder="Role">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveChangesBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="src/users.js"></script>
+</body>
+
+</html>

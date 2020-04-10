@@ -1,4 +1,6 @@
-let token = window.localStorage.getItem('shopapitoken');
+// let token = window.localStorage.getItem('shopapitoken');
+// let userInfo = parseJwt(token);
+// let userRole = userInfo.role;
 
 function parseJwt(token) {
     var base64Url = token.split('.')[1];
@@ -9,8 +11,6 @@ function parseJwt(token) {
 
     return JSON.parse(jsonPayload);
 };
-
-
 
 $(document).ready(function () {
 
@@ -43,21 +43,19 @@ $(document).ready(function () {
                         });
                 } else {
                     x.json().then(result => {
-                        let userInfo = parseJwt(result.token);
+                        let userInfo = parseJwt(result.data.token);
                         console.log(userInfo);
-                        window.localStorage.setItem('shopapitoken', result.token);
+                        window.localStorage.setItem('shopapitoken', result.data.token);
                         $('#infoBlock')
                         .removeClass('d-none')
                         .addClass('alert-success')
                         .text(`Welcome, ${userInfo.unique_name}!`);
-
-                        setTimeout(x => window.location.href="categories.html", 3000);
                     });
-
                 }
-
             });
     });
+
+    let token = window.localStorage.getItem('shopapitoken');
 
     let userInfo = parseJwt(token);
 
@@ -69,5 +67,5 @@ $(document).ready(function () {
         $('#userName').addClass("d-none");
         $('#userInfo').addClass("d-none");
     }
-
 });
+

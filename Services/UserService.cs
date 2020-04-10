@@ -1,36 +1,80 @@
-using System.Linq;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
 using Shop.API.Domain.Model;
 using Shop.API.Domain.Repositories;
 using Shop.API.Domain.Services;
-using Shop.API.Extensions;
-using Shop.API.Helpers;
+using Shop.API.Domain.Services.Communication;
 
 namespace Shop.API.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository repository;
-        private readonly AppSettings appSettings;
-
-        public UserService(IOptions<AppSettings> appSettings, IUserRepository repository)
+        private readonly IUserRepository userRepository;
+        private readonly IUnitOfWork unitOfWork;
+        public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork)
         {
-            this.repository = repository;
-            this.appSettings = appSettings.Value;
+            this.userRepository = userRepository;
+            this.unitOfWork = unitOfWork;
         }
 
-        public async Task<User> Authenticate(string login, string password)
+        public async Task<UserResponse> DeleteAsync(int id)
         {
-            var user = (await repository.ListAsync())
-                                .SingleOrDefault(usr => usr.Login == login &&
-                                                        usr.Password == password);  
-            if (user == null)
-                return null;
+            var existingUser = await userRepository.FindByIdAsync(id);
+            if (existingUser == null)
+                return new UserResponse("User not found");
+            try
+            {
+                userRepository.Remove(existingUser);
+                await unitOfWork.CompleteAsync();
 
-            user.GenerateToken(appSettings.Secret, appSettings.ExpiresMinutes);
+                return new UserResponse(existingUser);
+            }
+            catch (Exception ex)
+            {
+                return new UserResponse($"Error when deleting user: {ex.Message}");
+            }
+        }
 
-            return user;
+        public async Task<IEnumerable<User>> ListAsync()
+        {
+            return await userRepository.ListAsync();
+        }
+
+        public async Task<UserResponse> SaveAsync(User user)
+        {
+            try
+            {
+                await userRepository.AddAsync(user);
+                await unitOfWork.CompleteAsync();
+
+                return new UserResponse(user);
+            }
+            catch (Exception ex)
+            {
+                return new UserResponse($"Error when saving the user: {ex.Message}");
+            }
+        }
+
+        public async Task<UserResponse> UpdateAsync(int id, User user)
+        {
+            var existingUser = await userRepository.FindByIdAsync(id);
+            if (existingUser == null)
+                return new UserResponse("User not found");
+            
+            // existingUser.Name = user.Name;
+
+            try
+            {
+                userRepository.Update(existingUser);
+                await unitOfWork.CompleteAsync();
+
+                return new UserResponse(existingUser);
+            }
+            catch (Exception ex)
+            {
+                return new UserResponse($"Error when updating user: {ex.Message}");
+            }
         }
     }
 }

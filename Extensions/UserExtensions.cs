@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
@@ -13,14 +15,18 @@ namespace Shop.API.Extensions
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secret);
+
+            var claims = new List<Claim> 
+            {
+                new Claim(ClaimTypes.Name, user.Firstname),         
+            };
+
+            var roleClaims = user.UserRoles.Select(x => new Claim(ClaimTypes.Role, x.Role.Name));
+            claims.AddRange(roleClaims);
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]
-                {
-                        new Claim(ClaimTypes.Name, user.Firstname),
-                        new Claim(ClaimTypes.Role, user.Role)
-                }),
-
+                Subject = new System.Security.Claims.ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddMinutes(expires),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

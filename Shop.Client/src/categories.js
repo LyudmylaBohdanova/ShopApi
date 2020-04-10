@@ -21,7 +21,6 @@ function getAllCategories() {
             'Authorization': `bearer ${token}`
         }})
         .then(x => {
-
             if (!x.ok) {
                 $('#infoBlock')
                     .removeClass('d-none')
@@ -29,8 +28,7 @@ function getAllCategories() {
                
             } else {
                 $('#infoBlock').addClass('d-none')
-                x.json()
-                    .then(result => renderCategoriesTable(result));
+                x.json().then(result => renderCategoriesTable(result));
             }
         });
 }
@@ -146,6 +144,8 @@ function renderCategoriesTable(categoriesObj) {
     });
 }
 
+
+
 function admin(){
     if(userRole == 'lexus_driver'){
        $('.admin').removeClass("d-none");
@@ -176,6 +176,7 @@ $(document).ready(function () {
             .then(x => x.json())    
                 .then(result => getAllCategories());
     });
+    //#region LogName
 
     $("#logoutBtn").click(function() {
         window.localStorage.removeItem('shopapitoken');
@@ -193,6 +194,8 @@ $(document).ready(function () {
         $('#userName').addClass("d-none");
         $('#userInfo').addClass("d-none");
     }
+
+    //#endregion
 
     getAllCategories();
 });
