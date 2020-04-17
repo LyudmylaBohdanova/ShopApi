@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shop.API.Domain.Model;
 using Shop.API.Domain.Services;
+using Shop.API.Extensions;
 using Shop.API.Resources;
 
 namespace Shop.API.Controllers

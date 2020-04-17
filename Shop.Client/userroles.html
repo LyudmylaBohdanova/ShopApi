@@ -17,7 +17,7 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="content/roles.css" class="src">
+    <link rel="stylesheet" href="content/userroles.css" class="src">
 </head>
 
 <body>
@@ -55,44 +55,17 @@
         </div>
       </nav>
 
-      <div class="container"><h3>Roles</h3></div>
+      <div class="container"><h3>User Roles</h3></div>
       <hr class="container">
       <div class="container">
         <div id="infoBlock" class="d-none alert alert-danger"></div>
-        <div id="rolesTable" class="d-none">
-          <div id="addBtn" class="admin mb-2" data-toggle="modal" data-target="#modalRole">
-            <img src="https://img.icons8.com/ultraviolet/32/000000/plus-2-math.png"/>
-          </div>
+        <div id="userRolesTable" class="d-none">
           <div id="tableData">
           </div>
         </div>
       </div>
     
-      <div class="modal fade" tabindex="-1" role="dialog" id="modalRole" aria-labelledby="categoryModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Role</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form name="form">
-                <label for="goodname">Name</label>
-                <input type='text' class="form-control mb-2" id="roleName" name="roleName"/>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel">Cancel</button>
-              <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <script src="src/roles.js"></script>
+      <script src="src/userroles.js"></script>
 </body>
 
 </html>

@@ -38,7 +38,10 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="roles.html">Roles</a>
-                  </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="userroles.html">UserRoles</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="login.html">Login</a>
                 </li>
@@ -58,7 +61,7 @@
     <div class="container">
         <div id="infoBlock" class="d-none alert alert-danger"></div>
         <div id="usersTable" class="d-none">
-            <div id="addBtn" class="admin mb-2">
+            <div id="addBtn" class="admin mb-2" data-toggle="modal" data-target="#modalUser">
                 <img src="https://img.icons8.com/ultraviolet/32/000000/plus-2-math.png"/>
             </div>
             <div id="tableData">
@@ -67,40 +70,32 @@
         </div>
     </div>
 
-    <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="userModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal fade" id="modalUser" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="userModal">Create user</h5>
+                    <h5 class="modal-title">User</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="nameForm">Name</label>
-                        <input class="form-control" id="nameForm" type="text" placeholder="Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="lastnameForm">Lastname</label>
-                        <input class="form-control" id="lastnameForm" type="text" placeholder="Lastname">
-                    </div>
-                    <div class="form-group">
-                        <label for="loginForm">Login</label>
-                        <input class="form-control" id="loginForm" type="text" placeholder="Login">
-                    </div>
-                    <div class="form-group">
-                        <label for="passwordForm">Password</label>
-                        <input class="form-control" id="passwordForm" type="password" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <label for="roleForm">Role</label>
-                        <input class="form-control" id="roleForm" type="text" placeholder="Role">
-                    </div>
+                    <form name="form">
+                        <label for="firstname">Firstname</label>
+                        <input class="form-control mb-2" id="firstname" name="firstname" type="text" placeholder="firstname">
+                        <label for="lastname">Lastname</label>
+                        <input class="form-control mb-2" id="lastname" name="lastname" type="text" placeholder="Lastname">
+                        <label for="login">Login</label>
+                        <input class="form-control mb-2" id="login" name="login" type="text" placeholder="Login">
+                        <label for="password">Password</label>
+                        <input class="form-control mb-2" id="password" name="password" type="password" placeholder="Password">
+                        <label for="role">Role</label>
+                        <input class="form-control mb-2" id="role" name="role" type="text" placeholder="Role" readonly>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="saveChangesBtn">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel">Close</button>
+                    <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
                 </div>
             </div>
         </div>

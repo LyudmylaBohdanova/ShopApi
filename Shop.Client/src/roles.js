@@ -1,8 +1,8 @@
 let token = window.localStorage.getItem('shopapitoken');
 let userInfo = parseJwt(token);
 let userRole = userInfo.role;
-let usersAll = [];
 let roleName;
+let id;
 
 function parseJwt(token) {
     var base64Url = token.split('.')[1];
@@ -14,60 +14,18 @@ function parseJwt(token) {
     return JSON.parse(jsonPayload);
 };
 
-function getAllRoles() {
-    // let userUrl = `http://localhost:5000/api/users`;
-
-    // fetch(userUrl, {
-    //     headers: {
-    //         'Authorization': `bearer ${token}`
-    //     }})
-    //     .then(x => {
-    //         if (!x.ok) {
-    //             $('#infoBlock')
-    //                 .removeClass('d-none')
-    //                     .text(x.statusText);
-    //         } else {
-    //             $('#infoBlock').addClass('d-none')
-    //             x.json().then(result => getUser(result));
-    //         }
-    //     });
-
+async function getAllRoles() {
     let roleUrl = 'http://localhost:5000/api/roles';
-    
-    fetch(roleUrl, {
-        headers: {
-            'Authorization': `bearer ${token}`
-        }})
-        .then(x => {
-            if (!x.ok) {
-                $('#infoBlock')
-                    .removeClass('d-none')
-                        .text(x.statusText);
-            } else {
-                $('#infoBlock').addClass('d-none');
-                x.json().then(result => renderRolesTable(result));
-            }
-    });
+
+    let response = await fetch(roleUrl, { headers: { 'Authorization': `bearer ${token}` }});
+    if (!response.ok){
+        $('#infoBlock').removeClass('d-none').text(x.statusText);
+    }else{
+        $('#infoBlock').addClass('d-none');
+        let json = await response.json();
+        renderRolesTable(json.data);
+    }
 }
-
-// function getUser(users){
-    
-//     for(user of users){
-//         userAll.push(user);
-//     }
-// }
-
-// function createSel(){
-//     let self = document.createElement('select');
-//     self.id = "sel";
-//     for(let i = 0; i < categoryAll.length; i++){
-//         let opt = document.createElement("option");
-//         opt.value = categoryAll[i].id;
-//         opt.innerHTML = categoryAll[i].name;
-//         self.appendChild(opt);
-//     }
-//     return self;
-// }
 
 function renderRolesTable(rolesObj) {
 
@@ -76,18 +34,11 @@ function renderRolesTable(rolesObj) {
         tableContent += `
         <tr>
             <td>${role.id}</td>
-            <td class="goodName name${role.id}">${role.name}</td>
+            <td class="roleName name${role.id}">${role.name}</td>
             <td class="admin">
-                <div data-id=${role.id} class="btnEdit edit${role.id}">
+                <div data-id=${role.id} class="btnEdit edit${role.id}"
+                    data-toggle="modal" data-target="#modalRole">
                     <img src="https://img.icons8.com/office/30/000000/edit.png"/>
-                </div>
-                <div class="row">
-                    <div data-id=${role.id} class="col btnCancel cancel${role.id} d-none">
-                        <img src="https://img.icons8.com/ultraviolet/32/000000/cancel.png"/>
-                    </div>
-                    <div data-id=${role.id} class="col btnSave save${role.id} d-none">
-                        <img src="https://img.icons8.com/officel/30/000000/ok.png"/>
-                    </div>
                 </div>
             </td>
             <td class="admin">
@@ -114,37 +65,20 @@ function renderRolesTable(rolesObj) {
     </table>
     `;
 
-    // let sel = createSel();
-    // document.getElementById('roleId').appendChild(sel);
-    // $(`#sel`).addClass('form-control');
-
     $('#rolesTable #tableData').html(rolesTable);
     $('#rolesTable').removeClass("d-none");
 
     admin();
 
-     $('.btnEdit').click(function() {
-         let id = $(this).data('id');
-         $(this).addClass('d-none');
-         $(`.save${id}`).removeClass('d-none');
-         $(`.cancel${id}`).removeClass('d-none');
+    $('.btnEdit').click(function() {
+         id = $(this).data('id');
          let elemRole = $(`.name${id}`);
          roleName = elemRole.text();
-         elemRole.html(`<input type='text' class="form-control" id="nameEdit" value='${roleName}' />`);
+         form.roleName.value = roleName;
      });
 
-     $(`.btnCancel`).click(function() {
-        let id = $(this).data('id');
-        $(this).addClass('d-none');
-        $(`.save${id}`).addClass('d-none');
-        $(`.edit${id}`).removeClass('d-none');
-        let elemRole = $(`.name${id}`);
-        elemRole.html(`${roleName}`);
-    });
-
-
     $('.btnRemove').click(function() {
-        let id = $(this).data('id');
+        id = $(this).data('id');
         let removeUrl = `http://localhost:5000/api/roles/${id}`;
         fetch(removeUrl, {
             method: 'DELETE',
@@ -153,42 +87,8 @@ function renderRolesTable(rolesObj) {
             }
         })
         .then(x => getAllRoles());
+        id = null;
     });
-
-    // $('#saveBtn').on('click',function() {
-    //     let createUrl = 'http://localhost:5000/api/roles';
-
-    //     let catSel = $('option');
-    //     let sel;
-
-    //     for(let i = 0; i < catSel.length; i++){
-    //         if(catSel[i].selected == true){
-    //             sel = catSel[i].value;
-    //         }
-    //     }
-
-    //     let newGood = {
-    //         "goodName" : $('#goodname').text(),
-    //         "goodCount" : $('goodcount').text(),
-    //         "price" : $('goodprice').text(),
-    //         "categoryId" :  sel,
-    //         "categoryName" : null
-    //     };
-
-    //     fetch(createUrl, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Authorization': `bearer ${token}`,
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify(newGood)
-    //     })
-    //         .then(x => x.json())    
-    //             .then(result => getAllGoods()
-    //     );
-        
-    //     //$('#saveGood').close();
-    // });
 }
 
 function admin(){
@@ -199,7 +99,69 @@ function admin(){
     }
 }
 
+function createRole(){
+    let createUrl = 'http://localhost:5000/api/roles';
+
+    let data = {
+        "name" : roleName
+    };
+
+    fetch(createUrl, {
+        method: 'POST',
+        headers: {
+            'Authorization': `bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+        .then(x => x.json())    
+            .then(result => getAllRoles()
+    );
+}
+
+function editRole(id){
+    let updateUrl = `http://localhost:5000/api/roles/${id}`;
+
+    let data = {
+        "name" : roleName
+    };
+
+    fetch(updateUrl, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `bearer ${token}`,
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+        })
+        .then(x => getAllRoles()
+    );
+}
+
 $(document).ready(function () {
+
+    getAllRoles();
+
+    $('#saveBtn').on('click',function() {
+        
+        roleName = form.roleName.value;
+
+        if(id != null){
+            editRole(id);
+        }else{
+            createRole();
+        }
+        
+        roleName = null;
+        id = null;
+        form.roleName.value = null;
+    });
+
+    $("#cancel").on('click', function() {
+        roleName = null;
+        id = null;
+        form.roleName.value = null;
+    });
 
     $("#logoutBtn").click(function() {
         window.localStorage.removeItem('shopapitoken');
@@ -215,7 +177,4 @@ $(document).ready(function () {
         $('#userName').addClass("d-none");
         $('#userInfo').addClass("d-none");
     }
-
-
-    getAllRoles();
 });

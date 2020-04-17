@@ -40,6 +40,9 @@
           <a class="nav-link" href="roles.html">Roles</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="roles.html">UserRoles</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="login.html">Login</a>
         </li>     
       </ul>
@@ -57,7 +60,7 @@
   <div class="container">
     <div id="infoBlock" class="d-none alert alert-danger"></div>
     <div id="goodsTable" class="d-none">
-      <div id="addBtn" class="admin mb-2" data-toggle="modal" data-target="#saveGood">
+      <div id="addBtn" class="admin mb-2" data-toggle="modal" data-target="#modalGood">
         <img src="https://img.icons8.com/ultraviolet/32/000000/plus-2-math.png"/>
       </div>
       <div id="tableData">
@@ -65,7 +68,7 @@
     </div>
   </div>
 
-  <div class="modal" tabindex="-1" role="dialog" id="saveGood">
+  <div class="modal" tabindex="-1" role="dialog" id="modalGood">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -75,20 +78,20 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
+          <form name="form">
             <label for="goodname">Name</label>
-            <input type='text' class="form-control mb-2" id="goodname"/>
+            <input type='text' class="form-control mb-2" id="goodName" name="goodName"/>
             <label for="categoryId">Category</label>
             <div id="categoryId" class="mb-2"></div>
             <label for="goodcount">Count</label>
-            <input type='text' class="form-control mb-2" id="goodcount"/>
+            <input type='text' class="form-control mb-2" id="goodCount" name="goodCount"/>
             <label for="goodprice">Price</label>
-            <input type='text' class="form-control mb-2" id="goodprice"/>
+            <input type='text' class="form-control mb-2" id="goodPrice" name="goodPrice"/>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" ata-dismiss="modal" id="saveBtn">Save</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
         </div>
       </div>
     </div>
