@@ -18,7 +18,8 @@ namespace Shop.API.Persistence.Repositories
 
         public async Task<User> FindByIdAsync(int id)
         {
-            return await context.Users.FindAsync(id);
+            return await context.Users.Include(x => x.UserRoles).ThenInclude(x => x.Role)
+                                    .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<User>> ListAsync()

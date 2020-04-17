@@ -23,7 +23,6 @@ namespace Shop.API.Persistence.Repositories
 
         public async Task<IEnumerable<Good>> ListAsync()
         {
-            //return await context.Goods.ToListAsync();
             return await context.Goods.Include(x => x.Category).ToListAsync();
         }
 

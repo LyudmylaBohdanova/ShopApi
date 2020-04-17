@@ -62,6 +62,9 @@ namespace Shop.API.Services
             var findRole = await repository.FindByIdAsync(id);
             if(findRole == null)
                 return new RoleResponse("Role not found");
+            
+            findRole.Name = role.Name;
+
             try
             {
                 repository.Update(findRole);

@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using Shop.API.Domain.Model;
+
 namespace Shop.API.Resources
 {
     public class UserResource

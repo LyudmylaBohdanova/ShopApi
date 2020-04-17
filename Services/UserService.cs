@@ -62,7 +62,8 @@ namespace Shop.API.Services
             if (existingUser == null)
                 return new UserResponse("User not found");
             
-            // existingUser.Name = user.Name;
+            existingUser.Firstname = user.Firstname;
+            existingUser.Lastname = user.Lastname;
 
             try
             {

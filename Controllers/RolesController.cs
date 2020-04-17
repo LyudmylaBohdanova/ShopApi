@@ -26,11 +26,17 @@ namespace Shop.API.Controllers
 
         [Authorize(Roles="lexus_driver, corolla_driver")]
         [HttpGet]
-        public async Task<IEnumerable<RoleResource>> GetTaskAsync()
+        public async Task<ResponseData> GetAllAsync()
         {
             var roles = await service.ListAsync();
             var resource = mapper.Map<IEnumerable<Role>, IEnumerable<RoleResource>>(roles);
-            return resource;
+            var result = new ResponseData
+            {
+                Data = resource,
+                Message = "",
+                Success = true
+            };
+            return result;
         }
 
         [Authorize(Roles="lexus_driver")]
@@ -41,13 +47,15 @@ namespace Shop.API.Controllers
                 return BadRequest(ModelState.GetErrorMessages());
 
             var role = mapper.Map<SaveRoleResource, Role>(resource);
-            var result = await service.SaveAsync(role);
-
-            if (!result.Success)
-                return BadRequest(result.Message);
-
-            var roleResource = mapper.Map<Role, RoleResource>(result.Role);
-            return Ok(roleResource);
+            var roleResponse = await service.SaveAsync(role);
+            var roleResourse = mapper.Map<Role, RoleResource>(roleResponse.Role);
+            var result = new ResponseData
+            {
+                Data = roleResourse,
+                Message = roleResponse.Message,
+                Success = roleResponse.Success
+            };
+            return Ok(result);
         }
 
         [Authorize(Roles="lexus_driver")]
@@ -58,25 +66,30 @@ namespace Shop.API.Controllers
                 return BadRequest(ModelState.GetErrorMessages());
 
             var role = mapper.Map<SaveRoleResource, Role>(resource);
-            var result = await service.UpdateAsync(id, role);
-
-            if (!result.Success)
-                return BadRequest(result.Message);
-
-            var roleResource = mapper.Map<Role, RoleResource>(result.Role);
-            return Ok(roleResource);
+            var roleResponse = await service.UpdateAsync(id, role);
+            var roleResource = mapper.Map<Role, RoleResource>(roleResponse.Role);
+            var result = new ResponseData
+            {
+                Data = roleResource,
+                Success = roleResponse.Success,
+                Message = roleResponse.Message
+            };
+            return Ok(result);
         }
         
         [Authorize(Roles="lexus_driver")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var result = await service.DeleteAsync(id);
-            if (!result.Success)
-                return BadRequest(result.Message);
-
-            var roleResource = mapper.Map<Role, RoleResource>(result.Role);
-            return Ok(roleResource);
+            var roleResponse = await service.DeleteAsync(id);
+            var roleResource = mapper.Map<Role, RoleResource>(roleResponse.Role);
+            var result = new ResponseData
+            {
+                Data = roleResource,
+                Success = roleResponse.Success,
+                Message = roleResponse.Message
+            };
+            return Ok(result);
         }
     }
 }

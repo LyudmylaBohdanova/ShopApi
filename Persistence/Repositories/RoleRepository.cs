@@ -24,7 +24,6 @@ namespace Shop.API.Persistence.Repositories
         public async Task<IEnumerable<Role>> ListAsync()
         {
             return await context.Roles.ToListAsync();
-            //return await context.Roles.Include(x => x.UserRoles).ThenInclude(x => x.User).ToListAsync();
         }
 
         public void Remove(Role role)

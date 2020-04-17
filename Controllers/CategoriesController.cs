@@ -11,7 +11,7 @@ using Shop.API.Resources;
 namespace Shop.API.Controllers
 {
     [Authorize]
-    [Route ("api/categories")]
+    [Route ("/api/[controller]")]
     public class CategoriesController : Controller
     {
         private readonly ICategoryService categoryService;
@@ -24,11 +24,17 @@ namespace Shop.API.Controllers
 
         [Authorize(Roles="lexus_driver, corolla_driver")]
         [HttpGet]
-        public async Task<IEnumerable<CategoryResource>> GetAllAsync() 
+        public async Task<ResponseData> GetAllAsync() 
         {
             var categories = await categoryService.ListAsync();
             var resource = mapper.Map<IEnumerable<Category>,IEnumerable<CategoryResource>>(categories);
-            return resource;
+            var result = new ResponseData
+            {
+                Data = resource,
+                Message = "",
+                Success = true
+            };
+            return result;
         }
 
         [Authorize(Roles="lexus_driver")]
@@ -39,13 +45,15 @@ namespace Shop.API.Controllers
                 return BadRequest(ModelState.GetErrorMessages());
 
             var category = mapper.Map<SaveCategoryResource, Category>(resource);
-            var result = await categoryService.SaveAsync(category);
-
-            if (!result.Success)
-                return BadRequest(result.Message);
-            
-            var categoryResource = mapper.Map<Category, CategoryResource>(result.Category);
-            return Ok(categoryResource);
+            var categoryResponse = await categoryService.SaveAsync(category);  
+            var categoryResource = mapper.Map<Category, CategoryResource>(categoryResponse.Category);
+            var result = new ResponseData
+            {
+                Data = categoryResource,
+                Message = categoryResponse.Message,
+                Success = categoryResponse.Success
+            };
+            return Ok(result);
         }
 
         [Authorize(Roles="lexus_driver")]
@@ -56,25 +64,30 @@ namespace Shop.API.Controllers
                 return BadRequest(ModelState.GetErrorMessages());
 
             var category = mapper.Map<SaveCategoryResource, Category>(resource);
-            var result = await categoryService.UpdateAsync(id, category);
-
-            if (!result.Success)
-                return BadRequest(result.Message);
-            
-            var categoryResource = mapper.Map<Category, CategoryResource>(result.Category);
-            return Ok(categoryResource);
+            var categoryResponse = await categoryService.UpdateAsync(id, category);  
+            var categoryResource = mapper.Map<Category, CategoryResource>(categoryResponse.Category);
+            var result = new ResponseData
+            {
+                Data = categoryResource,
+                Message = categoryResponse.Message,
+                Success = categoryResponse.Success
+            };
+            return Ok(result);
         }
 
         [Authorize(Roles="lexus_driver")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
-            var result = await categoryService.DeleteAsync(id);
-            if (!result.Success)
-                return BadRequest(result.Message);
-            
-            var categoryResource = mapper.Map<Category, CategoryResource>(result.Category);
-            return Ok(categoryResource);
+            var categoryResponse = await categoryService.DeleteAsync(id);
+            var categoryResource = mapper.Map<Category, CategoryResource>(categoryResponse.Category);
+            var result = new ResponseData
+            {
+                Data = categoryResource,
+                Message = categoryResponse.Message,
+                Success = categoryResponse.Success
+            };
+            return Ok(result);
         }
     }
 }

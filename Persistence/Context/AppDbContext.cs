@@ -58,9 +58,9 @@ namespace Shop.API.Persistence.Context
             builder.Entity<User>().Property(x => x.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<User>().Property(x => x.Firstname).IsRequired().HasMaxLength(30);
             builder.Entity<User>().Property(x => x.Lastname).IsRequired().HasMaxLength(30);
-            builder.Entity<User>().Property(x => x.Login).IsRequired().HasMaxLength(30);
+            builder.Entity<User>().Property(x => x.Login).IsRequired().HasMaxLength(20);
             builder.Entity<User>().HasAlternateKey(x => x.Login);
-            builder.Entity<User>().Property(x => x.Password).IsRequired().HasMaxLength(30);
+            builder.Entity<User>().Property(x => x.Password).IsRequired().HasMaxLength(20);
             builder.Entity<User>().HasMany(x => x.UserRoles).WithOne(x => x.User);
 
             builder.Entity<User>().HasData
